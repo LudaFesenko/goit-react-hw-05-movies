@@ -27,6 +27,10 @@ const Cast = () => {
     fetchData();
   }, [movieId]);
 
+  if (cast?.length === 0) {
+    return <p>Sorry we don't have any casts for this movie!</p>;
+  }
+
   return (
     <>
       {isLoading && <Loader />}

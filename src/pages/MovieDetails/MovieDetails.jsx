@@ -1,4 +1,4 @@
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useRef } from 'react';
 import { Outlet, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Notify } from 'notiflix';
@@ -12,7 +12,8 @@ import { ImageWrong, Wrapper } from './MovieDetails.styled.js';
 
 const MovieDetails = () => {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  // const backLinkHref = location.state?.from ?? '/';
+  const backLinkRef = useRef(location.state?.from ?? '/');
 
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
@@ -46,7 +47,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <BackLink to={backLinkHref}>Go back</BackLink>
+      <BackLink to={backLinkRef.current}>Go back</BackLink>
       {error && (
         <Wrapper>
           <ImageWrong src={wrongPicture} alt="not found" width={400} />
